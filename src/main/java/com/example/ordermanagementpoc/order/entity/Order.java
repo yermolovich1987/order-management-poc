@@ -22,7 +22,8 @@ import java.util.Set;
 
 /** Simplified model that shows only order and its items. All other details are skipped. */
 @Entity
-@Table(name = "order")
+// Just a dummy name prefix to avoid collision with DB keyword.
+@Table(name = "received_order")
 @Getter
 @Setter
 @ToString

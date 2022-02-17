@@ -1,4 +1,4 @@
-CREATE TABLE "order" (
+CREATE TABLE received_order (
     id BIGINT NOT NULL AUTO_INCREMENT,
     status VARCHAR(30) NOT NULL,
     version BIGINT NOT NULL,
@@ -17,5 +17,5 @@ CREATE TABLE order_item (
     external_item_id VARCHAR(30) NOT NULL,
     quantity INTEGER NOT NULL,
     PRIMARY KEY (id),
-    FOREIGN KEY (order_id) REFERENCES "order"(id)
+    FOREIGN KEY (order_id) REFERENCES received_order(id)
 );

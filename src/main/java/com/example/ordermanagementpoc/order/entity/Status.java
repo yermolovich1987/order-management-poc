@@ -1,8 +1,8 @@
 package com.example.ordermanagementpoc.order.entity;
 
 public enum Status {
-  CREATED,
+  DRAFT,
   APPROVED,
-  DELETED,
+  CANCELLED,
   COMPLETED
 }
