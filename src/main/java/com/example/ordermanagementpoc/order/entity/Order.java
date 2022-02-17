@@ -20,9 +20,7 @@ import javax.persistence.Version;
 import java.time.Instant;
 import java.util.Set;
 
-/**
- * Simplified model that shows only order and its items. All other details are skipped.
- */
+/** Simplified model that shows only order and its items. All other details are skipped. */
 @Entity
 @Table(name = "order")
 @Getter
@@ -30,20 +28,22 @@ import java.util.Set;
 @ToString
 public class Order {
   @Id
-  @GeneratedValue(strategy = GenerationType.AUTO)
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
+
   @NotNull
   @Enumerated(value = EnumType.STRING)
   private Status status;
-  private @Version
-  Long version;
-  @NaturalId
-  private String orderNumber;
+
+  @Version private Long version;
+  @NaturalId private String orderNumber;
   private String comment;
+
   @OneToMany(mappedBy = "order")
   @ToString.Exclude
   private Set<OrderItem> items;
 
+  // TODO Try to populate this fields via Security.
   private Instant createdDate;
   private String createdBy;
   private Instant updatedDate;
