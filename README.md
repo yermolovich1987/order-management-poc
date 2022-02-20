@@ -6,3 +6,7 @@ http://localhost:8080/h2-console/login.jsp?jsessionid=db86477f272ac196f664b8bdfa
 
 ## Show orders list:
 http://localhost:8080/orders
+
+## Sample of complex search query:
+http://localhost:8080/orders?items.externalItemId=item_1
+

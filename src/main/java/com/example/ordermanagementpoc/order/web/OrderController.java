@@ -2,22 +2,29 @@ package com.example.ordermanagementpoc.order.web;
 
 import com.example.ordermanagementpoc.order.entity.Order;
 import com.example.ordermanagementpoc.order.repository.OrderRepository;
+import com.querydsl.core.types.Predicate;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.rest.webmvc.BasePathAwareController;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.querydsl.binding.QuerydslPredicate;
 import org.springframework.data.rest.webmvc.PersistentEntityResource;
 import org.springframework.data.rest.webmvc.PersistentEntityResourceAssembler;
+import org.springframework.data.rest.webmvc.RepositoryRestController;
+import org.springframework.data.web.PagedResourcesAssembler;
 import org.springframework.hateoas.IanaLinkRelations;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
 // TODO Extract logic into the service.
-@BasePathAwareController
+//@BasePathAwareController
+@RepositoryRestController
 @RequiredArgsConstructor
 public class OrderController {
 
@@ -73,5 +80,16 @@ public class OrderController {
     orderRepository.save(existedOrder);
 
     return ResponseEntity.noContent().build();
+  }
+
+  @GetMapping(path = "/orders/customSearch/dummy")
+  public HttpEntity<?> searchOrders(
+      @QuerydslPredicate(root = Order.class) Predicate predicate,
+      Pageable pageable,
+      PagedResourcesAssembler assembler) {
+
+    Page<Order> ordersPage = orderRepository.findAll(predicate, pageable);
+
+    return ResponseEntity.ok(assembler.toModel(ordersPage));
   }
 }
