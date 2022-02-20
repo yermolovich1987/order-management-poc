@@ -4,6 +4,7 @@ import com.example.ordermanagementpoc.order.entity.Order;
 import com.example.ordermanagementpoc.order.repository.OrderRepository;
 import org.springframework.data.rest.core.config.RepositoryRestConfiguration;
 import org.springframework.data.rest.webmvc.config.RepositoryRestConfigurer;
+import org.springframework.http.HttpMethod;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 
@@ -21,6 +22,8 @@ public class SpringDataRestCustomization implements RepositoryRestConfigurer {
         .withIdMapping(Order::getOrderNumber)
         .withLookup(OrderRepository::findOrderByOrderNumber);
 
-//    config.getExposureConfiguration()
+    config.getExposureConfiguration()
+        .disablePutForCreation()
+        .forDomainType(Order.class).withItemExposure((metadata, httpMethods) ->  httpMethods.disable(HttpMethod.PATCH, HttpMethod.DELETE));
   }
 }
