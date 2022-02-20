@@ -14,7 +14,7 @@ CREATE TABLE received_order (
 
 CREATE TABLE order_item (
     id BIGINT NOT NULL AUTO_INCREMENT,
-    order_id BIGINT NOT NULL,
+    order_id BIGINT,
     external_item_id VARCHAR(30) NOT NULL,
     quantity INTEGER NOT NULL,
     PRIMARY KEY (id),

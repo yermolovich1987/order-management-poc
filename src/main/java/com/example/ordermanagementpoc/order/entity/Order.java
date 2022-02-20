@@ -44,7 +44,7 @@ public class Order {
   @ToString.Exclude
   private Set<OrderItem> items;
 
-  // TODO Try to populate this fields via Security.
+  // TODO Try to populate this fields via Security or automatically.
   private Instant createdDate;
   private String createdBy;
   private Instant updatedDate;
